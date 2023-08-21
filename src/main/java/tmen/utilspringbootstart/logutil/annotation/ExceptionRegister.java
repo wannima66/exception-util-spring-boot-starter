@@ -15,5 +15,5 @@ public @interface ExceptionRegister {
      * 优先级高
      * @return
      */
-    String name() default "";
+    String[] name() default {};
 }

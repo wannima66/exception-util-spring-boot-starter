@@ -1,7 +1,8 @@
 package tmen.utilspringbootstart.logutil.cache;
 
+import tmen.utilspringbootstart.logutil.constant.ConstantStr;
 import tmen.utilspringbootstart.logutil.exception.DuplicateBeanException;
-import tmen.utilspringbootstart.logutil.exceptionadapter.ExceptionAdapter;
+import tmen.utilspringbootstart.logutil.exceptionadapter.ExceptionHandler;
 
 import java.util.Map;
 import java.util.Optional;
@@ -9,9 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ExceptionAdapterCache {
 
-    private final static Map<String, ExceptionAdapter> adapterCache = new ConcurrentHashMap<>();
+    private final static Map<String, ExceptionHandler> adapterCache = new ConcurrentHashMap<>();
 
-    public static  void put(String beanName, ExceptionAdapter bean) {
+    public static  void put(String beanName, ExceptionHandler bean) {
         // todo 如果覆盖默认的adapter，会报错
         if (isDuplicateBeanDefinition(beanName)) {
             throw new DuplicateBeanException("Duplicate exception adapter definition detected for: " + beanName);
@@ -19,9 +20,9 @@ public class ExceptionAdapterCache {
         adapterCache.put(beanName, bean);
     }
 
-    public static  ExceptionAdapter get(String beanName) {
-        ExceptionAdapter adapter = adapterCache.get(beanName);
-        return Optional.ofNullable(adapter).orElseGet(() -> adapterCache.get("defaultExceptionAdapter"));
+    public static ExceptionHandler get(String beanName) {
+        ExceptionHandler adapter = adapterCache.get(beanName);
+        return Optional.ofNullable(adapter).orElseGet(() -> adapterCache.get(ConstantStr.DEFAULT_HANDLER));
     }
 
     private static boolean isDuplicateBeanDefinition(String beanName) {

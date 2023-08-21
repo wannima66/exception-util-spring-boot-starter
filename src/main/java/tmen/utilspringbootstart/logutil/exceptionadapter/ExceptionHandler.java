@@ -1,22 +1,16 @@
 package tmen.utilspringbootstart.logutil.exceptionadapter;
 
 
+import org.springframework.boot.logging.LogLevel;
 
-public interface ExceptionAdapter {
-
-    /**
-     * 异常类型名
-     */
-    String exceptionClassName();
-
-
+public interface ExceptionHandler {
 
     /**
-     * 是否关键异常
+     * 日志等级
      * @return true-error级别 false-warn级别
      */
-    default boolean isCriticalException() {
-        return true;
+    default LogLevel isCriticalException() {
+        return LogLevel.ERROR;
     }
 
 
@@ -27,5 +21,9 @@ public interface ExceptionAdapter {
     default void handleException(Exception e) {
         System.out.println("记录日志："+ e);
     }
+
+    void handleException(String title, Exception e);
+    void handleException(String title, String msg, Exception e);
+
 
 }
