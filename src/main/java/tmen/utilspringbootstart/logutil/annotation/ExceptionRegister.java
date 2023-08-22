@@ -1,6 +1,7 @@
 package tmen.utilspringbootstart.logutil.annotation;
 
 
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
@@ -16,4 +17,9 @@ public @interface ExceptionRegister {
      * @return
      */
     String[] name() default {};
+
+    /**
+     * 日志等级
+     */
+    LogLevel logLevel() default LogLevel.ERROR;
 }

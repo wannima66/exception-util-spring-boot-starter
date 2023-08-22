@@ -1,25 +1,25 @@
-package tmen.utilspringbootstart.logutil.exceptionadapter;
+package tmen.utilspringbootstart.logutil.exceptionHandler;
 
 
-import tmen.utilspringbootstart.logutil.LogManager;
 import tmen.utilspringbootstart.logutil.annotation.ExceptionRegister;
+import tmen.utilspringbootstart.logutil.log.LogManagerUtil;
 
 @ExceptionRegister(name = {"NullPointerException"})
 public class NullPointerExceptionHandler implements ExceptionHandler {
 
     @Override
     public void handleException(Exception e) {
-        String simpleName = getClass().getSimpleName();
-        LogManager.logLevel(simpleName, isCriticalException(), e);
+        LogManagerUtil.logLevel(level(), e);
     }
 
     @Override
     public void handleException(String title, Exception e) {
-        LogManager.logLevel(title, isCriticalException(), e);
+        LogManagerUtil.logLevel(level(), title, e);
+
     }
 
     @Override
     public void handleException(String title, String msg, Exception e) {
-        LogManager.logLevel(title, isCriticalException(), msg, e);
+        LogManagerUtil.logLevel(level(), title, msg, e);
     }
 }
