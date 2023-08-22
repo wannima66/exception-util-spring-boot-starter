@@ -15,7 +15,10 @@ public class LogUtilsProperties {
      * 是否开启日志模式, 开启显示加载日志信息
      */
     private boolean log = false;
-
+    /**
+     * 自定义日志类路径
+     */
+    private String logClass = "tmen.utilspringbootstart.logutil.log.impl.DefaultLogItem";
 
     public boolean isEnable() {
         return enable;
@@ -31,5 +34,13 @@ public class LogUtilsProperties {
 
     public void setLog(boolean log) {
         this.log = log;
+    }
+
+    public String getLogClass() {
+        return logClass;
+    }
+
+    public void setLogClass(String logClass) {
+        this.logClass = logClass;
     }
 }

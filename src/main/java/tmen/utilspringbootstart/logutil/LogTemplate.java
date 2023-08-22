@@ -1,7 +1,7 @@
-package tmen.utilspringbootstart.logutil.entity;
+package tmen.utilspringbootstart.logutil;
 
-import tmen.utilspringbootstart.logutil.cache.ExceptionAdapterCache;
-import tmen.utilspringbootstart.logutil.exceptionadapter.ExceptionAdapter;
+import tmen.utilspringbootstart.logutil.exceptionHandler.ExceptionHandlerRegister;
+import tmen.utilspringbootstart.logutil.exceptionHandler.ExceptionHandler;
 import tmen.utilspringbootstart.logutil.function.ConsumerAction;
 import tmen.utilspringbootstart.logutil.function.SupplierAction;
 
@@ -44,12 +44,12 @@ public class LogTemplate {
     }
 
 
-    private ExceptionAdapter getAdapter(Exception e) {
+    private ExceptionHandler getAdapter(Exception e) {
         if (e == null) {
             return null;
         }
         String name = exceptionSimpleName(e);
-        return ExceptionAdapterCache.get(name);
+        return ExceptionHandlerRegister.get(name);
     }
 
     private String exceptionSimpleName(Exception e) {
