@@ -1,7 +1,8 @@
 package tmen.utilspringbootstart.logutil.exceptionHandler;
 
+import tmen.utilspringbootstart.logutil.annotation.ExceptionRegister;
 import tmen.utilspringbootstart.logutil.constant.ConstantStr;
-import tmen.utilspringbootstart.logutil.exception.DuplicateBeanException;
+
 
 import java.util.Map;
 import java.util.Optional;
@@ -11,10 +12,9 @@ public class ExceptionHandlerRegister {
 
     private final static Map<String, ExceptionHandler> adapterCache = new ConcurrentHashMap<>();
 
-
-    public static void put(String beanName, ExceptionHandler bean) {
-        if (isDuplicateBeanDefinition(beanName)) {
-            throw new DuplicateBeanException("Duplicate exception adapter definition detected for: " + beanName);
+    public static  void put(String beanName, ExceptionHandler bean) {
+        if (checkBeanOrder(beanName, bean)) {
+            return;
         }
         adapterCache.put(beanName, bean);
     }
@@ -24,7 +24,17 @@ public class ExceptionHandlerRegister {
         return Optional.ofNullable(adapter).orElseGet(() -> adapterCache.get(ConstantStr.DEFAULT_HANDLER));
     }
 
-    private static boolean isDuplicateBeanDefinition(String beanName) {
-        return adapterCache.containsKey(beanName);
+    private static boolean checkBeanOrder(String beanName, ExceptionHandler bean) {
+        ExceptionHandler existHandler = adapterCache.get(beanName);
+        if (existHandler == null) {
+            return false;
+        }
+        int oldOrder = getOrder(existHandler);
+        int newOrder = getOrder(bean);
+        return oldOrder <= newOrder;
+    }
+
+    private static int getOrder(ExceptionHandler existHandler) {
+        return existHandler.getClass().getAnnotation(ExceptionRegister.class).order();
     }
 }

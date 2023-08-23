@@ -13,13 +13,18 @@ import java.lang.annotation.*;
 public @interface ExceptionRegister {
 
     /**
-     * 优先级高
-     * @return
+     * handler name
      */
     String[] name() default {};
 
     /**
-     * 日志等级
+     * handler log level
      */
     LogLevel logLevel() default LogLevel.ERROR;
+
+
+    /**
+     * handler order
+     */
+    int order() default 9;
 }

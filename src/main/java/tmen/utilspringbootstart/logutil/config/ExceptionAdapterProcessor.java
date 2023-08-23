@@ -22,10 +22,10 @@ public class ExceptionAdapterProcessor implements BeanPostProcessor {
         if (Objects.isNull(annotation) || !(bean instanceof ExceptionHandler)) {
             return bean;
         }
+        System.out.println("==加载bean=== "+ beanName);
         ExceptionHandler adapter = (ExceptionHandler)bean;
         String[] names = annotation.name();
         List<String> nameList = names.length > 0 ? Arrays.asList(names) : List.of(adapter.getClass().getSimpleName());
-        System.out.println("注册一个bean到map中，beanName:" + beanName);
         nameList.forEach(name -> ExceptionHandlerRegister.put(beanName, adapter));
         return bean;
     }

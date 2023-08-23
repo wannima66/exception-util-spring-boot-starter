@@ -4,8 +4,9 @@ package tmen.utilspringbootstart.logutil.exceptionHandler;
 import org.springframework.boot.logging.LogLevel;
 import tmen.utilspringbootstart.logutil.annotation.ExceptionRegister;
 
-public interface ExceptionHandler {
+import java.util.Map;
 
+public interface ExceptionHandler {
     /**
      * 日志等级
      * @return true-error级别 false-warn级别
@@ -20,8 +21,18 @@ public interface ExceptionHandler {
      */
     void handleException(Exception e);
 
-    void handleException(String title, Exception e);
-    void handleException(String title, String msg, Exception e);
+    default void handleException(String title, Exception e) {
+        handleException(title, e, null);
+    }
+
+    default void handleException(String title, String msg) {
+        handleException(title, msg, null);
+    }
+
+    void handleException(String title, String msg, Map<String, String> tags);
+
+    void handleException(String title, Throwable e, Map<String, String> tags);
+
 
 
 }

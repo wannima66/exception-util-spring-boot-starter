@@ -16,7 +16,7 @@ import tmen.utilspringbootstart.logutil.log.LogManagerUtil;
 @Configuration
 @ComponentScan(value = {"tmen.utilspringbootstart.logutil"})
 @EnableConfigurationProperties(value = LogUtilsProperties.class)
-@ConditionalOnProperty(name = "log.util.enable")
+@ConditionalOnProperty(name = "log.util.enable", matchIfMissing = true)
 public class LogUtilAutoConfiguration  {
 
     @Autowired
@@ -34,6 +34,6 @@ public class LogUtilAutoConfiguration  {
         if (!StringUtils.hasLength(logUtilsProperties.getLogClass())){
             throw new IllegalArgumentException("Property 'logClass' cannot be null.");
         }
-        LogManagerUtil.setFactory(new LogFactory(logUtilsProperties.getLogClass()));
+        LogManagerUtil.initFactory(new LogFactory(logUtilsProperties.getLogClass()));
     }
 }

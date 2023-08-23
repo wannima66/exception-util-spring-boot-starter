@@ -1,79 +1,47 @@
 package tmen.utilspringbootstart.logutil.log;
 
-import cn.hutool.json.JSONUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.logging.LogLevel;
 
-
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LogManagerUtil {
 
     private static LogFactory currentFactory = null;
 
-    public static void setFactory(LogFactory factory) {
-        currentFactory = factory;
+    private static final Object lock = new Object();
+
+    public static void initFactory(LogFactory factory) {
+        if (currentFactory == null) {
+            synchronized (lock) {
+                if (currentFactory == null) {
+                    currentFactory = factory;
+                }
+            }
+        }
     }
     public static void logLevel(LogLevel level, Throwable e) {
-        LogWrapper logger = currentFactory.getLogger();
-        if (LogLevel.WARN.equals(level)) {
-            logger.warn(e);
-        } else if (LogLevel.ERROR.equals(level)) {
-            logger.error(e);
-        } else {
-            logger.info(e);
-        }
-    }
-
-    public static void logLevel(LogLevel level, String title, Throwable e) {
-        LogWrapper logger = currentFactory.getLogger(title);
-        if (LogLevel.WARN.equals(level)) {
-            logger.warn(e);
-        } else if (LogLevel.ERROR.equals(level)) {
-            logger.error(e);
-        } else {
-            logger.info(e);
-        }
+        logLevel(level, StringUtils.EMPTY, e);
     }
 
     public static void logLevel(LogLevel level, String msg) {
-        LogWrapper logger = getLog();
-        if (LogLevel.WARN.equals(level)) {
-            logger.warn(msg);
-        } else if (LogLevel.ERROR.equals(level)) {
-            logger.error(msg);
-        } else {
-            logger.info(msg);
-        }
+        logLevel(level, StringUtils.EMPTY, msg);
+    }
+
+
+    public static void logLevel(LogLevel level, String title, Throwable e) {
+        logLevel(level, title, e, null);
     }
 
     public static void logLevel(LogLevel level, String title, String msg) {
-        LogWrapper logger = getLog(title);
-        if (LogLevel.WARN.equals(level)) {
-            logger.warn(msg);
-        } else if (LogLevel.ERROR.equals(level)) {
-            logger.error(msg);
-        } else {
-            logger.info(msg);
-        }
+        logLevel(level, title, msg, null);
     }
 
-    public static void logLevel(LogLevel level, String title, String msg, Throwable e) {
-        LogWrapper logger = getLog(title);
-        String content = String.format("msg:[%s], cause:[%s]", msg, JSONUtil.toJsonStr(e));
-        if (LogLevel.WARN.equals(level)) {
-            logger.warn(content);
-        } else if (LogLevel.ERROR.equals(level)) {
-            logger.error(content);
-        } else {
-            logger.info(content);
-        }
-    }
-
-    public static void logLevel(LogLevel level, String title, String msg, Throwable e, Map<String, String> tags) {
-        logLevel(level, title, String.format("msg:[%s], cause:[%s]", msg, JSONUtil.toJsonStr(e)), tags);
-    }
     public static void logLevel(LogLevel level, String title, String msg, Map<String,String> tags) {
         LogWrapper logger = getLog(title);
+        tags = Objects.isNull(tags) ?  new HashMap<>(0) : tags;
         if (LogLevel.WARN.equals(level)) {
             logger.warn(msg, tags);
         } else if (LogLevel.ERROR.equals(level)) {
@@ -85,6 +53,7 @@ public class LogManagerUtil {
 
     public static void logLevel(LogLevel level, String title, Throwable e, Map<String,String> tags) {
         LogWrapper logger = getLog(title);
+        tags = Objects.isNull(tags) ?  new HashMap<>(0) : tags;
         if (LogLevel.WARN.equals(level)) {
             logger.warn(e, tags);
         } else if (LogLevel.ERROR.equals(level)) {
@@ -95,7 +64,7 @@ public class LogManagerUtil {
     }
 
     private static LogWrapper getLog(String title) {
-        return currentFactory.getLogger(title);
+        return StringUtils.isNotBlank(title) ? currentFactory.getLogger(title) : getLog();
     }
 
     private static LogWrapper getLog() {
