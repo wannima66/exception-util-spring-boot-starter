@@ -8,11 +8,11 @@
         <version>2.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>tmen.coder</groupId>
-    <artifactId>tmen-util-spring-boot-start</artifactId>
+    <groupId>com.tmen</groupId>
+    <artifactId>exception-util-spring-boot-starter</artifactId>
     <version>0.0.2-SNAPSHOT</version>
-    <name>tmen-util-spring-boot-start</name>
-    <description>tmen-util-spring-boot-start</description>
+    <name>exception-util-spring-boot-starter</name>
+    <description>exception-util-spring-boot-starter</description>
     <properties>
         <java.version>11</java.version>
         <hutool.version>5.8.16</hutool.version>
@@ -58,6 +58,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 
