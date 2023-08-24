@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-tmen.utilspringbootstart.logutil.autoconfigure.LogUtilAutoConfiguration
+com.tmen.exception.util.autoconfigure.LogUtilAutoConfiguration
