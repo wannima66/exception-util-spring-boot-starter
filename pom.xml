@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.tmen</groupId>
     <artifactId>exception-util-spring-boot-starter</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>exception-util-spring-boot-starter</name>
     <description>exception-util-spring-boot-starter</description>
     <properties>
