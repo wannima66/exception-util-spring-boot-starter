@@ -25,7 +25,7 @@ public class ExceptionAdapterProcessor implements BeanPostProcessor {
         ExceptionHandler adapter = (ExceptionHandler)bean;
         String[] names = annotation.name();
         List<String> nameList = names.length > 0 ? Arrays.asList(names) : List.of(adapter.getClass().getSimpleName());
-        nameList.forEach(name -> ExceptionHandlerRegister.put(beanName, adapter));
+        nameList.forEach(name -> ExceptionHandlerRegister.put(name, adapter));
         return bean;
     }
 }

@@ -24,6 +24,11 @@ public class ExceptionHandlerRegister {
         return Optional.ofNullable(adapter).orElseGet(() -> adapterCache.get(Constant.DEFAULT_HANDLER));
     }
 
+    public static ExceptionHandler get(String beanName, String backUpName) {
+        ExceptionHandler adapter = adapterCache.get(beanName);
+        return Optional.ofNullable(adapter).orElse(get(backUpName));
+    }
+
     private static boolean checkBeanOrder(String beanName, ExceptionHandler bean) {
         ExceptionHandler existHandler = adapterCache.get(beanName);
         if (existHandler == null) {

@@ -1,6 +1,8 @@
 package com.tmen.exception.util.annotation;
 
 
+import org.springframework.boot.logging.LogLevel;
+
 import java.lang.annotation.*;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
@@ -9,8 +11,12 @@ import java.lang.annotation.*;
 @Documented
 public @interface HandleException {
 
-    // title
+    String handlerName() default "";
+    String title() default "";
 
-    //
+    String logTemplate();
 
+    String tags() default "";
+
+    boolean isTraceStack() default true;
 }

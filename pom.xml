@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.tmen</groupId>
     <artifactId>exception-util-spring-boot-starter</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>exception-util-spring-boot-starter</name>
     <description>exception-util-spring-boot-starter</description>
     <properties>
@@ -63,6 +63,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
-public class LogRecordPointcut  extends StaticMethodMatcherPointcut implements Serializable {
+public class HandleExceptionPointcut extends StaticMethodMatcherPointcut implements Serializable {
     @Override
     public boolean matches(Method method, Class<?> aClass) {
         HandleException annotation = method.getAnnotation(HandleException.class);
