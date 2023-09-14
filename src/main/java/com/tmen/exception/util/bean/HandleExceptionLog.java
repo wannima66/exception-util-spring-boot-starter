@@ -19,10 +19,11 @@ public class HandleExceptionLog {
 
     /**
      * 处理器名字
+     * 默认匹配对应异常类型对应的处理器
      */
     private String handlerName;
     /**
-     * 日志的title
+     * 日志记录器的title，默认类名
      */
     private String title;
 
@@ -30,11 +31,6 @@ public class HandleExceptionLog {
      * 日志内容
      */
     private String message;
-
-    /**
-     * tag信息
-     */
-    private Map<String, String> tags;
 
     /**
      * 异常信息
@@ -60,7 +56,6 @@ public class HandleExceptionLog {
      * 日志等级
      */
     private LogLevel logLevel;
-
 
     /**
      * 创建时间

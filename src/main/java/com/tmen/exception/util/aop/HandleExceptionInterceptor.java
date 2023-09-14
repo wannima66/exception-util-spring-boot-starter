@@ -117,7 +117,6 @@ public class HandleExceptionInterceptor implements MethodInterceptor, Serializab
                 .handlerName(operation.getHandlerName())
                 .title(parseLogTitle(methodExecuteResult, operation, expressionValues))
                 .message(expressionValues.get(action))
-                .tags(parseLogTags(expressionValues.getOrDefault(operation.getTags(), operation.getTags())))
                 .createTime(LocalDateTime.now())
                 .exception(methodExecuteResult.getThrowable())
                 .traceStack(operation.isTraceStack())
@@ -136,7 +135,6 @@ public class HandleExceptionInterceptor implements MethodInterceptor, Serializab
     private List<String> getSpElTemplates(HandleExceptionOperation operation, String... actions) {
         List<String> spElTemplates = new ArrayList<>();
         spElTemplates.add(operation.getTitle());
-        spElTemplates.add(operation.getTags());
         spElTemplates.addAll(Arrays.asList(actions));
         return spElTemplates;
     }

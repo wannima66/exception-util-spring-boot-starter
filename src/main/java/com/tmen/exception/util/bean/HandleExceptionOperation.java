@@ -18,8 +18,6 @@ public class HandleExceptionOperation {
 
     private String title;
 
-    private String tags;
-
 
     private boolean traceStack;
 
